@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePaginationColor(currentQuestionIndex, isCorrectAnswer);
 
         const answeredCount = testQuestions.filter(item => item.userAnswered).length;
-        if (mistakeCount > MAX_MISTAKES || answeredCount === testQuestions.length) {
+        if (mistakeCount >= MAX_MISTAKES || answeredCount === testQuestions.length) {
             setTimeout(() => finishTest(), 1500);
             return;
         }
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeSpent = totalTimeSeconds - timeRemaining;
         const m = Math.floor(timeSpent / 60);
         const s = timeSpent % 60;
-        const isSuccess = mistakeCount <= MAX_MISTAKES && timeRemaining > 0;
+        const isSuccess = mistakeCount < MAX_MISTAKES && timeRemaining > 0;
 
         document.getElementById('res-total').innerText = testQuestions.length;
         document.getElementById('res-correct').innerText = correctCount;
