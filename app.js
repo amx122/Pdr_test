@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuestionIndex = 0;
     let correctCount = 0;
     let mistakeCount = 0;
-    let MAX_MISTAKES = 3;
+    let MAX_MISTAKES = 2;
     
     let timeRemaining = 0;
     let totalTimeSeconds = 0;
