@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Твій Автоінструктор | Підготовка до іспиту ПДР</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="hero-section">
+        <div class="container hero-container">
+            
+            <div class="logo-wrapper">
+                <img src="/images/1.png" alt="Логотип" id="brand-logo" class="brand-logo">
+            </div>
+
+            <div class="profile-card glass-effect">
+                <div class="photo-wrapper">
+                    <img src="/images/2.jpg" alt="Фото інструктора" id="instructor-photo" class="instructor-photo">
+                </div>
+                
+                <h1 class="instructor-name">Петро щур</h1> <p class="instructor-subtitle">Професійний автоінструктор. Навчання водінню з нуля.</p>
+
+                <div class="social-links">
+                    <a href="tel:+380991234567" class="social-btn btn-phone">
+                        <span class="icon">📞</span> +38 (099) 999-99-99
+                    </a>
+                    <a href="https://instagram.com/" target="_blank" class="social-btn btn-instagram">
+                        <span class="icon">📸</span> Instagram
+                    </a>
+                    <a href="https://t.me/" target="_blank" class="social-btn btn-telegram">
+                        <span class="icon">📲</span> Telegram
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            
+            <div id="setup-screen" class="test-setup-card glass-effect">
+                <h2 class="section-title">Налаштування тесту</h2>
+
+                <div class="setup-form-grid">
+                    <div class="input-group" style="grid-column: 1 / -1;">
+    <label for="category-select">Категорії</label>
+    <select id="category-select" class="custom-select">
+        <option value="all">Всі</option>
+        <option value="A">А1 або А</option>
+        <option value="B">В1 або В</option>
+        <option value="C">С1 або С</option>
+        <option value="D">D1 або D</option>
+        <option value="E">BE, C1E, CE, D1E, або DE</option>
+        <option value="T">T</option>
+    </select>
+</div>
+
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <button type="button" id="btn-open-chapters" class="btn-chapters">
+                            <span class="icon">📑</span> Розділи ПДР
+                        </button>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Кількість питань</label>
+                        <input type="number" id="q-count" class="custom-input" value="20" min="1" max="150">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Кількість помилок</label>
+                        <input type="number" id="mistakes-limit" class="custom-input" value="3" min="0">
+                    </div>
+
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <label>Кількість хвилин</label>
+                        <input type="number" id="time-limit" class="custom-input" value="20" min="1">
+                    </div>
+                </div>
+
+                <div class="setup-action">
+                    <button id="btn-start-test" class="btn-start glow-button">Почати тестування</button>
+                    <p id="system-message" class="system-message"></p>
+                </div>
+            </div>
+
+            <div id="test-interface" class="test-interface-card glass-effect" style="display: none;">
+                <div class="test-header">
+                    <button id="btn-prev" class="btn-nav" disabled>Попереднє</button>
+                    <div class="test-stats-header">
+                        <span id="question-counter" class="q-counter">Питання: 1 / 20</span>
+                        <div id="timer-display" class="timer">20:00</div>
+                    </div>
+                    <button id="btn-next" class="btn-nav">Наступне</button>
+                </div>
+
+                <div class="pagination-wrapper">
+                    <div id="pagination-list" class="pagination-list"></div>
+                </div>
+
+                <div class="question-container">
+                    <h3 id="question-text" class="question-text">Завантаження...</h3>
+                    <div id="question-media" class="question-media" style="display: none;">
+                        <img id="question-img" src="" alt="Ілюстрація">
+                    </div>
+                    <div id="answers-list" class="answers-list"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="chapters-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-box chapters-box">
+            <h3 class="modal-title" style="font-size: 20px;">Виберіть розділи</h3>
+            
+            <div class="chapters-actions">
+                <button id="btn-select-all" class="btn-nav" style="padding: 5px 10px; font-size: 13px;">Вибрати всі</button>
+                <button id="btn-deselect-all" class="btn-nav" style="padding: 5px 10px; font-size: 13px;">Зняти всі</button>
+            </div>
+
+            <div id="chapters-list" class="chapters-list">
+                </div>
+
+            <button id="btn-save-chapters" class="glow-button mt-20">Гаразд</button>
+        </div>
+    </div>
+
+    <div id="result-modal" class="modal-backdrop" style="display: none;">
+        <div id="modal-content" class="modal-box">
+            <h2 id="modal-title" class="modal-title">Результати іспиту</h2>
+            
+            <div class="results-grid">
+                <div class="result-item">
+                    <span class="result-label">Всього питань</span>
+                    <span id="res-total" class="result-value">20</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Правильно</span>
+                    <span id="res-correct" class="result-value text-success">0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Помилок</span>
+                    <span id="res-mistakes" class="result-value text-danger">0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Витрачено часу</span>
+                    <span id="res-time" class="result-value">00:00</span>
+                </div>
+            </div>
+
+            <button id="btn-restart" class="btn-restart">Повернутися на головну</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
